@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+{% block title %}
+Restaurants
+{% endblock %}
+</head>
+
+{% block body %}
+
+    {% for restaurant in restaurants %}
+        <li>
+                Restaurant #{{ restaurant.id }} : {{ restaurant.address }}
+        </li>
+    {% endfor %}
+{% endblock %}
+
+</body>
+</html>

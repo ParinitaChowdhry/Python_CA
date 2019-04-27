@@ -13,7 +13,7 @@ class Restaurant (models.Model):
     (4,'Korean'),
     (5,'Indian'),
     )
-    category = models.IntegerField(max_length=2, choices=category_choices, default=1,)
+    category = models.IntegerField(choices=category_choices, default=1,)
 
 class Review (models.Model):
     restaurant= models.ForeignKey(Restaurant, on_delete=models.CASCADE)
