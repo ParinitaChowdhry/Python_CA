@@ -1,19 +1,32 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-{% block title %}
-Restaurants
-{% endblock %}
+        {% load static %}
+        <!-- <link rel="stylesheet" href="{ % static 'css/styles.css' % }"> -->
+        <script src="{% static 'js/app.js' %}"></script>
+    {% block title %}
+    <h1 id="cat" class ="cat"> Choose you category </h1>
+    {% endblock %}
+
+
 </head>
 
-{% block body %}
+<body>
+    {% block body %}
 
-    {% for restaurant in restaurants %}
+    <ul id="cat">
+        {% for category in categories %}
         <li>
-                Restaurant #{{ restaurant.id }} : {{ restaurant.address }}
-        </li>
-    {% endfor %}
-{% endblock %}
+            <a href="{% url 'rest_list' category.id %}">
+                {{category}}
+            </a>
 
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% endblock %}
 </body>
+
 </html>

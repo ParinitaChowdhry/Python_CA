@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <!-- <link rel="stylesheet" href="{ % static 'css/styles.css' % }"> -->
+    <script src="{% static 'js/app.js' %}"></script>
+
+    {% block title %}
+    Restaurants
+    {% endblock %}
+</head>
+
+<body>
+    {% block body %}
+    <ul>
+        {% for review in reviews %}
+        <li>
+            {{review}}
+        </li>
+        {% empty %}
+        <li>
+            No Review
+        </li>
+        {% endfor %}
+
+    </ul>
+
+    <button id="review">
+        Leave a review
+    </button>
+
+    <input type="text" id="text_review" style="visibility: hidden"> </input>
+
+    <button id="text_review" style="visibility: hidden"> Submit Review </button>
+
+    <div>
+        <a href="{% url 'index' %}"> Click to go back</a>
+    </div>
+
+    {% endblock %}
+
+
+</body>
+
+</html>

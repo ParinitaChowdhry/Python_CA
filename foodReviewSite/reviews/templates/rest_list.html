@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {% block title %}
+    Restaurants
+    {% endblock %}
+</head>
+
+<body>
+    {% block body %}
+    <ul>
+        {% for restaurant in restaurants%}
+        <li>
+            <a href="{% url 'rest_detail' restaurant.id %}">
+                {{ restaurant }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div>
+        <a href="{% url 'index' %}"> Click to go back</a>
+    </div>
+
+    {% endblock %}
+
+
+</body>
+
+</html>
