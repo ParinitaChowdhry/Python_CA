@@ -13,33 +13,39 @@
 
 <body>
     {% block body %}
-    <ul>
-        {% for review in reviews %}
-        <li>
-            {{review}}
-        </li>
-        {% empty %}
-        <li>
-            No Review
-        </li>
-        {% endfor %}
+    {% for review in reviews %}
+    <div id="review">
 
-    </ul>
+        Review:
+        {{review.description}}
 
-    <button id="review">
-        Leave a review
-    </button>
+        Rating:
+        {{review.rating}}
+
+        Time:
+        {{review.reviewInputDateTime|date:'d b H:i'}}
+
+    </div>
+    {% empty %}
+    <li>
+        No Review
+    </li>
+    {% endfor %}
+
+
+    <button id="review"> Leave a review </button>
 
     <input type="text" id="text_review" style="visibility: hidden"> </input>
 
-    <button id="text_review" style="visibility: hidden"> Submit Review </button>
+    <input type="submit" id="text_review" style="visibility: hidden">
+    <a href="{% url 'review' restaurant.id %}"> Submit Review </a>
+    </input>
 
     <div>
         <a href="{% url 'index' %}"> Click to go back</a>
     </div>
 
     {% endblock %}
-
 
 </body>
 
