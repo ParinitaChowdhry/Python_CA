@@ -3,25 +3,25 @@ from django.conf import settings
 from django.contrib.auth.models import User
 
 # Create your models here.
-class Category (models.Model):
-    name= models.CharField(max_length=15)
+# class Category (models.Model):
+#     name= models.CharField(max_length=15)
 
-    def __str__(self):
-        return f"{self.name}"
+#     def __str__(self):
+#         return f"{self.name}"
 
 class Restaurant (models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
-    category= models.ForeignKey(Category, on_delete=models.CASCADE)
-    # category_choices = (
-    # (1,'Western'),
-    # (2,'Japanese'),
-    # (3,'Chinese'),
-    # (4,'Korean'),
-    # (5,'Indian'),
-    # (6, 'Thai'),
-    # )
-    # category = models.IntegerField(choices=category_choices, default=1,)
+    # category= models.ForeignKey(Category, on_delete=models.CASCADE)
+    category_choices = (
+    (1,'Western'),
+    (2,'Japanese'),
+    (3,'Chinese'),
+    (4,'Korean'),
+    (5,'Indian'),
+    (6, 'Thai'),
+    )
+    category = models.IntegerField(choices=category_choices, default=1,)
 
     def __str__(self):
         return f"{self.name} - {self.address}"

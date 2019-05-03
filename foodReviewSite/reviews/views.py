@@ -1,6 +1,6 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Restaurant, Category, Review
+from .models import Restaurant, Review
 from .forms import ReviewForm
 from django.contrib.auth.models import User
 from datetime import datetime
@@ -9,7 +9,8 @@ from datetime import datetime
 # view of all categories from DB
 def index(request):
     context = {
-        "categories": Category.objects.all()
+        # "categories": Restaurant.objects.order_by('category').values('category').distinct(),
+        "categories": Restaurant.category_choices
     }
     return render(request, "index.html", context)
     if request.method=='Post':
@@ -17,10 +18,10 @@ def index(request):
 
 # view of list of restaurant which belong to a particular category
 def rest_list(request, category_id):
-    c = Category.objects.get(pk=category_id)
+    # c = Category.objects.get(pk=category_id)
     # r = Restaurant.objects.filter(category=c)
     context = {
-        "restaurants": Restaurant.objects.filter(category=c)
+        "restaurants": Restaurant.objects.filter(category=category_id),
         # "reviews": Review.objects.filter(restaurant=r)
     }
     return render(request, "rest_list.html", context)
