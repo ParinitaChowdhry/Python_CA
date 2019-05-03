@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 
 # Create your models here.
+# created alternative when category as integer field was not working in restaurant table
 # class Category (models.Model):
 #     name= models.CharField(max_length=15)
 
@@ -12,6 +13,7 @@ from django.contrib.auth.models import User
 class Restaurant (models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
+    # created alternative when category as integer field was not working in restaurant table
     # category= models.ForeignKey(Category, on_delete=models.CASCADE)
     category_choices = (
     (1,'Western'),
@@ -28,10 +30,13 @@ class Restaurant (models.Model):
 
 class Review (models.Model):
     restaurant= models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    # removed for initial development
     # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     description= models.CharField(max_length=2000)
-    rating = models.FloatField(default=0.00)
-    reviewInputDateTime= models.DateTimeField('date published')
+    # changed to decimal fields to restrict user entry to 1 decimal place. User can only enter less than 10.
+    rating = models.DecimalField(default=0.0,max_digits=2, decimal_places=1)
+    # rating = models.FloatField(default=0.0)
+    reviewInputDateTime= models.DateTimeField('date published', auto_now=False, auto_now_add=True)
 
     def __str__(self):
         return f"{self.description} - {self.rating} - {self.reviewInputDateTime}"

@@ -44,10 +44,13 @@ def review(request, restaurant_id):
         form = ReviewForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            desc = form.cleaned_data['your_review']
-            review = Review(restaurant=r, description = desc, rating = 2.00, reviewInputDateTime=datetime.today())
+            desc = form.cleaned_data['description']
+            rating = form.cleaned_data['rating']
+            review = Review(restaurant=r, description = desc, rating = rating)
             review.save()
             return HttpResponseRedirect(reverse('index'))
+        else:
+            return render(request, 'a.html')
     if request.method == 'GET':
         form=ReviewForm()
         context = {
