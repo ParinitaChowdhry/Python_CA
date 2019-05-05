@@ -11,5 +11,4 @@ urlpatterns = [
     path("category/<int:restaurant_id>/detail", views.rest_detail, name="rest_detail"),
     # submit review
     path("<int:restaurant_id>/review", views.review, name="review")
-    # path("review", views.review, name="review")
 ]

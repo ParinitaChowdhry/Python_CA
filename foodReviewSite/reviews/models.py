@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
-
 class Restaurant (models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
@@ -26,7 +25,7 @@ class Review (models.Model):
     # removed for initial development
     # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     description= models.CharField(max_length=2000)
-    # changed to decimal fields to restrict user entry to 1 decimal place. User can only enter less than 10.
+    # changed to decimal fields to restrict user entry to 1 decimal place. User can only enter less than 5.
     rating = models.DecimalField(default=0.0,max_digits=2, decimal_places=1, validators=[ MaxValueValidator(5.0),MinValueValidator(0.1)])
     # rating = models.FloatField(default=0.0)
     reviewInputDateTime= models.DateTimeField('date published', auto_now=False, auto_now_add=True)
