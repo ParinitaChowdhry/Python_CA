@@ -1,17 +1,12 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-
 </head>
-
 <body>
     <form action="review" method="POST">
         {% csrf_token %}
-        {{ form }}
+                {{ form.as_p }}
         <input type="submit" value="Submit">
     </form>
-
 </body>
-
 </html>

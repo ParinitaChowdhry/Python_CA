@@ -1,32 +1,27 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Restaurant, Review
 from .forms import ReviewForm
 from django.contrib.auth.models import User
 from datetime import datetime
+from django.forms import ValidationError
 
 # Create your views here.
 # view of all categories from DB
 def index(request):
     context = {
-        # "categories": Restaurant.objects.order_by('category').values('category').distinct(),
         "categories": Restaurant.category_choices
     }
     return render(request, "index.html", context)
-    if request.method=='Post':
-        return render(request, 'a.html')
 
 # view of list of restaurant which belong to a particular category
 def rest_list(request, category_id):
-    # c = Category.objects.get(pk=category_id)
-    # r = Restaurant.objects.filter(category=c)
     context = {
         "restaurants": Restaurant.objects.filter(category=category_id),
-        # "reviews": Review.objects.filter(restaurant=r)
     }
     return render(request, "rest_list.html", context)
 
-# view of review of restaurant which has been selected
+# view reviews of selected restaurant
 def rest_detail(request, restaurant_id):
     r= Restaurant.objects.get(pk=restaurant_id)
     context = {
@@ -35,10 +30,9 @@ def rest_detail(request, restaurant_id):
     }
     return render(request, "rest_detail.html", context)
 
-# view of review of restaurant which has been selected
-# def review(request, restaurant_id):
+# submit review of selected restaurant
 def review(request, restaurant_id):   
-    # u = User.username
+    # u = User.username- add in later
     r = Restaurant.objects.get(pk=restaurant_id)
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -50,7 +44,7 @@ def review(request, restaurant_id):
             review.save()
             return HttpResponseRedirect(reverse('index'))
         else:
-            return render(request, 'a.html')
+            return render(request, 'review.html', {'form': form})
     if request.method == 'GET':
         form=ReviewForm()
         context = {

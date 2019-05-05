@@ -1,17 +1,11 @@
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, DecimalField
 from .models import Review
-
-# class ReviewForm(forms.Form):
-#     review = forms.CharField(label='Review', max_length=2000)
-#     rating = forms.FloatField(label='Rating')
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class ReviewForm(ModelForm):
+    rating = DecimalField(validators=[ MaxValueValidator(5.0),MinValueValidator(0.1)])
+
     class Meta:
         model = Review
         fields=['description', 'rating']
-    # review = forms.CharField(label='Review', max_length=2000)
-    # rating = forms.FloatField(label='Rating')
-
-    #     description= models.CharField(max_length=2000)
-    # rating = models.FloatField(default=0.00)

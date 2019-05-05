@@ -1,20 +1,13 @@
 from django.db import models
 from django.conf import settings 
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
-# created alternative when category as integer field was not working in restaurant table
-# class Category (models.Model):
-#     name= models.CharField(max_length=15)
-
-#     def __str__(self):
-#         return f"{self.name}"
 
 class Restaurant (models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
-    # created alternative when category as integer field was not working in restaurant table
-    # category= models.ForeignKey(Category, on_delete=models.CASCADE)
     category_choices = (
     (1,'Western'),
     (2,'Japanese'),
@@ -34,7 +27,7 @@ class Review (models.Model):
     # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     description= models.CharField(max_length=2000)
     # changed to decimal fields to restrict user entry to 1 decimal place. User can only enter less than 10.
-    rating = models.DecimalField(default=0.0,max_digits=2, decimal_places=1)
+    rating = models.DecimalField(default=0.0,max_digits=2, decimal_places=1, validators=[ MaxValueValidator(5.0),MinValueValidator(0.1)])
     # rating = models.FloatField(default=0.0)
     reviewInputDateTime= models.DateTimeField('date published', auto_now=False, auto_now_add=True)
 
