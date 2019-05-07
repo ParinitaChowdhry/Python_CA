@@ -1,3 +1,16 @@
 h1 {
   text-align: center;
   }
+
+body {
+    background-color: rgb(236, 206, 229);
+}
+
+#review #time {
+float:right;
+}
+
+#review {
+  margin: 10px;
+  border: 1px solid rgb(76, 83, 175);
+}

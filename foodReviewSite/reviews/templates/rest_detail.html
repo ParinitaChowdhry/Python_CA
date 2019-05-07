@@ -1,49 +1,35 @@
-<!doctype html>
-<html lang="en">
+{% extends "./base.html" %}
 
-<head>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <script src="{% static 'js/app.js' %}"></script>
+{% block body %}
+<h1> Detailed Page of restaurant : {{restaurant.name}} </h1>
 
-    {% block title %}
-    <h1>
-    Restaurants
-    </h1>
-    {% endblock %}
-</head>
-
-<body>
-    {% block body %}
-
+<div id="reviews">
     {% for review in reviews %}
     <div id="review">
+        {{review.id}}
+        <div id="time">
+            {{review.reviewInputDateTime|date:'d b H:i'}}
+        </div>
 
         Review:
         {{review.description}}
-
-        Rating:
-        {{review.rating}}
-
-        Time:
-        {{review.reviewInputDateTime|date:'d b H:i'}}
-
+        <div id="rating">
+            Rating:
+            {{review.rating}}
+        </div>
+        <a href="{% url 'review_detail' review.id %}"> View Comment </a>
     </div>
-    {% empty %}
-    <li>
-        No Review
-    </li>
-    {% endfor %}
+</div>
+{% empty %}
+<li>
+    No Review
+</li>
+{% endfor %}
 
-    <a href="{% url 'review' restaurant.id %}"> Submit Review </a>
-    </input>
+<a href="{% url 'review' restaurant.id %}"> Submit Review </a>
 
-    <div>
-        <a href="{% url 'index' %}"> Click to go back</a>
-    </div>
+<div>
+    <a href="{% url 'index' %}"> Click to go back</a>
+</div>
 
-    {% endblock %}
-
-</body>
-
-</html>
+{% endblock %}

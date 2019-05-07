@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block body %}
-<h1> Submit you review </h1>
-<form action="review" method="POST">
+<h1> Submit you comment </h1>
+<form action="comment" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit">
