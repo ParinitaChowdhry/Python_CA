@@ -14,6 +14,12 @@ urlpatterns = [
     # comments of review selected
     path("category/review/<int:review_id>/detail", views.review_detail, name="review_detail"),
     # add comment
-    path("category/review/<int:review_id>/comment", views.comment, name="comment")
-    # <a href="{% url 'comment' review.id %}"> Comment </a>
+    path("category/review/<int:review_id>/comment", views.comment, name="comment"),
+    # login
+    path("login", views.login_user, name="login"),
+    path("logout", views.logout_user, name="logout"),
+    path("register", views.register, name="register"),
+    path("user", views.user, name="user")
 ]
+
+

@@ -2,4 +2,8 @@
 
 {% block body %}
 <h1>Error Page</h1>
+
+{% if message %}
+{{message}}
+{% endif %}
 {% endblock %}

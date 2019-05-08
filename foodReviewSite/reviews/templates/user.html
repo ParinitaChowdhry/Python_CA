@@ -1,0 +1,12 @@
+{% extends "./base.html" %}
+
+{% block body %}
+<h1>Error Page</h1>
+
+{% for u in users %}
+<ul>
+    {{u.id}}-{{u.username}}-{{u.password}}
+</ul>
+
+{% endfor %}
+{% endblock %}

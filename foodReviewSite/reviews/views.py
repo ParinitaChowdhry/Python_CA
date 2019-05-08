@@ -1,10 +1,11 @@
 from django.shortcuts import render, reverse, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Restaurant, Review, Comment
-from .forms import ReviewForm, CommentForm
+from .forms import ReviewForm, CommentForm, UserForm
 from django.contrib.auth.models import User
 from datetime import datetime
 from django.forms import ValidationError
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 # view of all categories from DB
@@ -84,3 +85,50 @@ def comment(request, review_id):
         # }
         # return render(request, 'comment.html', {'form': form}, context)
         return render(request, 'comment.html', {'form': form})
+
+def login_user(request):
+    if request.method =='GET':
+        form=UserForm()
+        return render(request, 'login.html', {'form': form})
+    if request.method =='POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        # user = User.objects.filter(username=username, password=password)
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('index'))
+        if user is None:
+            return render(request, 'login.html', {'message': 'Invalid credentials'})
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('login'))
+
+def register(request):
+    if request.method =='GET':
+        form=UserForm()
+        return render(request, 'register.html', {'form': form})
+    if request.method =='POST':
+         form = UserForm(request.POST)
+         # check whether it's valid:
+         if form.is_valid():
+             username = form.cleaned_data['username']
+             password = form.cleaned_data['password']
+             user = User.objects.create_user(username)
+             user.set_password(form.cleaned_data['password'])
+             user.save()
+             return HttpResponseRedirect(reverse('login'))
+         else:
+             return render(request, 'register.html', {'form': form})
+
+def user(request):
+    context = {
+        "users": User.objects.all()
+    }
+    return render(request, "user.html", context)
+    
+
+    # path("login", views.login, name="login"),
+    # path("logout", views.logout, name="logout"),
+    # path("register", views.register, name="register")
