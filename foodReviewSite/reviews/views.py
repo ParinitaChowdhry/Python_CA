@@ -152,9 +152,4 @@ def register(request):
          else:
              return render(request, 'register.html', {'form': form})
 
-def user(request):
-    context = {
-        "users": User.objects.all()
-    }
-    return render(request, "user.html", context)
 

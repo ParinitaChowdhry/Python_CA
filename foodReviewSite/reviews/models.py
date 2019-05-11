@@ -22,7 +22,6 @@ class Restaurant (models.Model):
 
 class Review (models.Model):
     restaurant= models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    # removed for initial development
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     description= models.CharField(max_length=2000)
     # changed to decimal fields to restrict user entry to 1 decimal place. User can only enter less than 5.
@@ -37,7 +36,6 @@ class Comment (models.Model):
     review= models.ForeignKey(Review, on_delete=models.CASCADE)
     content= models.CharField(max_length=1000)
     commentInputDateTime= models.DateTimeField('date published',auto_now=False, auto_now_add=True)
-    # removed for initial development
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.content} - {self.commentInputDateTime}"

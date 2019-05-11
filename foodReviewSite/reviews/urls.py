@@ -18,8 +18,7 @@ urlpatterns = [
     # login
     path("", views.login_user, name="login"),
     path("logout", views.logout_user, name="logout"),
-    path("register", views.register, name="register"),
-    path("user", views.user, name="user")
+    path("register", views.register, name="register")
 ]
 
 
