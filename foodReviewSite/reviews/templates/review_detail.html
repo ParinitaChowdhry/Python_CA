@@ -5,7 +5,12 @@
 <ul>
     {% for comment in comments%}
     <li>
-            {{ comment }}
+        <div id="time">
+            {{comment.commentInputDateTime}}
+        </div>
+
+        User: {{comment.user}}
+
     </li>
     {% endfor %}
 </ul>
@@ -13,7 +18,7 @@
 <a href="{% url 'comment' review.id %}"> Submit Comment </a>
 
 <div>
-    <a href="{% url 'index' %}"> Click to go back</a>
+    <a href="{% url 'cat_list' %}"> Click to go back</a>
 </div>
 
 {% endblock %}

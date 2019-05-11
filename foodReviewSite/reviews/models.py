@@ -23,7 +23,7 @@ class Restaurant (models.Model):
 class Review (models.Model):
     restaurant= models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     # removed for initial development
-    # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     description= models.CharField(max_length=2000)
     # changed to decimal fields to restrict user entry to 1 decimal place. User can only enter less than 5.
     rating = models.DecimalField(default=0.0,max_digits=2, decimal_places=1, validators=[ MaxValueValidator(5.0, 'Please provide a max rating of 5.0'),MinValueValidator(0.0,'Please provide a min rating of 0.0')])
@@ -38,11 +38,11 @@ class Comment (models.Model):
     content= models.CharField(max_length=1000)
     commentInputDateTime= models.DateTimeField('date published',auto_now=False, auto_now_add=True)
     # removed for initial development
-    # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.content} - {self.commentInputDateTime}"
 
 class Like (models.Model):
     # removed for initial development
-    # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     review= models.ForeignKey(Review, on_delete=models.CASCADE)

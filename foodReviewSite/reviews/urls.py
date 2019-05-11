@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     # index view
-    path("", views.index, name="index"),
+    path("category", views.cat_list, name="cat_list"),
     # list of restaurant of a category
     path("category/<int:category_id>", views.rest_list, name="rest_list"),
     # reviews of restaurant selected
@@ -16,7 +16,7 @@ urlpatterns = [
     # add comment
     path("category/review/<int:review_id>/comment", views.comment, name="comment"),
     # login
-    path("login", views.login_user, name="login"),
+    path("", views.login_user, name="login"),
     path("logout", views.logout_user, name="logout"),
     path("register", views.register, name="register"),
     path("user", views.user, name="user")
