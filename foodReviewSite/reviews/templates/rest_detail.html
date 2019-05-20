@@ -23,15 +23,6 @@
         {% include 'review_detail.html' %}    
         {% endfor %}
 
-        <!-- <h2> load two : </h2>
-        {% for comment in review.comment_set.all %} -->
-        <!-- Load all : {{loadall}}
-        {% if loadall == False %} -->
-        <!-- {% include 'review_detail.html' %}   -->
-        <!-- {% endif %} -->
-        <!-- {% endfor %} -->
-<!-- 
-        <Button id="loadall" onclick = "loadall()"> Load All </Button> -->
         <br>
         <br>
             <a href="{% url 'comment' review.id %}" class="submit_button"> Submit Comment </a>
