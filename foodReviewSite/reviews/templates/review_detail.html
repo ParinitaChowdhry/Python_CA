@@ -1,24 +1,12 @@
-{% extends "./base.html" %}
-
-{% block body %}
-<h1>List of restaurants in selected category : </h1>
-<ul>
-    {% for comment in comments%}
-    <li>
+<div>
+    <div id="review">
         <div id="time">
-            {{comment.commentInputDateTime}}
+            {{comment.commentInputDateTime|date:'d M P'}}
         </div>
 
+        {{comment.content}}
+
         User: {{comment.user}}
-
-    </li>
-    {% endfor %}
-</ul>
-
-<a href="{% url 'comment' review.id %}"> Submit Comment </a>
-
-<div>
-    <a href="{% url 'cat_list' %}"> Click to go back</a>
+    </div>
 </div>
 
-{% endblock %}

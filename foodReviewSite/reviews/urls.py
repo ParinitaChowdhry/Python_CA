@@ -11,8 +11,6 @@ urlpatterns = [
     path("category/<int:restaurant_id>/detail", views.rest_detail, name="rest_detail"),
     # submit review
     path("category/<int:restaurant_id>/review", views.review, name="review"),
-    # comments of review selected
-    path("category/review/<int:review_id>/detail", views.review_detail, name="review_detail"),
     # add comment
     path("category/review/<int:review_id>/comment", views.comment, name="comment"),
     # login

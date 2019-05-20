@@ -1,13 +1,14 @@
 {% extends "./base.html" %}
 
 {% block body %}
+<h1> Login page</h1>
 <form action="{% url 'login' %}" method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <input type="submit" value="Login"/>
+    <input type="submit" value="Login" class="submit_button" />
+    <a href="{% url 'register' %}" class="submit_button" id="register"> Register</a>
 </form>
 
-<a href="{% url 'register' %}"> Register</a>
 {% if message %}
 {{message}}
 {% endif %}

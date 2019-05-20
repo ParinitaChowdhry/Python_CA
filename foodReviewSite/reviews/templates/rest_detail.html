@@ -1,16 +1,16 @@
 {% extends "./base.html" %}
 
 {% block body %}
+<a href="{% url 'logout' %}" class="submit_button" id="logout"> Logout</a>
 <h1> Detailed Page of restaurant : {{restaurant.name}} </h1>
 
-<div id="reviews">
+<div>
     {% for review in reviews %}
     <div id="review">
         <div id="time">
-            {{review.reviewInputDateTime}}
+            {{review.reviewInputDateTime|date:'d M P'}} 
         </div>
 
-        Review:
         {{review.description}}
         <div id="rating">
             Rating:
@@ -18,7 +18,25 @@
         </div>
 
         User: {{review.user}}
-        <a href="{% url 'review_detail' review.id %}"> View Comment </a>
+
+        {% for comment in review.comment_set.all %}
+        {% include 'review_detail.html' %}    
+        {% endfor %}
+
+        <!-- <h2> load two : </h2>
+        {% for comment in review.comment_set.all %} -->
+        <!-- Load all : {{loadall}}
+        {% if loadall == False %} -->
+        <!-- {% include 'review_detail.html' %}   -->
+        <!-- {% endif %} -->
+        <!-- {% endfor %} -->
+<!-- 
+        <Button id="loadall" onclick = "loadall()"> Load All </Button> -->
+        <br>
+        <br>
+            <a href="{% url 'comment' review.id %}" class="submit_button"> Submit Comment </a>
+        <br>
+        <br>
     </div>
 </div>
 {% empty %}
@@ -27,13 +45,14 @@
 </li>
 {% endfor %}
 
-
-{% if review_exist == False%}
-
-<a href="{% url 'review' restaurant.id %}"> Submit Review </a>
+{% if user_review_exist == False%}
+<br>
+<a href="{% url 'review' restaurant.id %}" class="submit_button"> Submit Review </a>
+<br>
+<br>
 {% endif %}
-<div>
-    <a href="{% url 'cat_list' %}"> Click to go back</a>
-</div>
+<br>
+    <a href="{% url 'cat_list' %}" class="submit_button"> Go to category page</a>
+<br>
 
 {% endblock %}

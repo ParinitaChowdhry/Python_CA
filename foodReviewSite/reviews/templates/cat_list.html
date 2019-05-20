@@ -1,17 +1,20 @@
 {% extends "./base.html" %}
 
 {% block body %}
+<a href="{% url 'logout' %}" class="submit_button" id="logout"> Logout</a>
 <h1> Choose your category </h1>
+
 <ul id="cat">
     {% for id,category  in categories %}
     <li>
-        <a href="{% url 'rest_list' id %}">
+        <a href="{% url 'rest_list' id %}" class="list_item">
             {{category}}
         </a>
     </li>
     {% endfor %}
 
 </ul>
+
 
 
 {% endblock %}

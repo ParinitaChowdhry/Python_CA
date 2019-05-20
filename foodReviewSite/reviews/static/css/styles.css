@@ -2,15 +2,65 @@ h1 {
   text-align: center;
   }
 
-body {
-    background-color: rgb(236, 206, 229);
-}
-
 #review #time {
 float:right;
 }
 
+body{
+  background-color:ivory;
+  padding-left: 40px;
+  font-family: Arial;
+}
+
+.submit_button{
+  background-color: rgb(77, 127, 228);
+  color: white;
+  border-radius:15px; 
+  padding:10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition-property: background-color;
+  transition-duration: 1s;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 15px;
+  border-style: solid;
+}
+
+#logout{
+  float:right;
+}
+
+#register{
+  position: relative;
+  left: 100px;
+}
+
+.list_item{
+  text-decoration: none;
+  color: black;  
+  line-height: 2;
+  font-weight: bold;
+}
+
+.submit_button:hover {
+  background-color: rgb(51, 51, 204);
+}
+
 #review {
   margin: 10px;
-  border: 1px solid rgb(76, 83, 175);
+  box-shadow:  -1px 1px #77aaff,
+  -2px 2px #77aaff,
+  -3px 3px #77aaff;
+  padding: 10px;
+  border: 1px solid #77aaff;
+}
+
+.helptext{
+  visibility: hidden;
+}
+
+#rest_rating {
+  margin-left: 5px;
 }

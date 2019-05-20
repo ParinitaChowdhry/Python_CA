@@ -20,6 +20,19 @@ class Restaurant (models.Model):
     def __str__(self):
         return f"{self.name} - {self.address}"
 
+    def rating(self):
+        reviews = self.review_set.all()
+        if len(reviews)!=0:
+            rating =0
+            for r in reviews:
+                rating += r.rating
+            rating = rating/len(reviews)
+            return rating 
+        else:
+            rating = "insufficient data"
+            return rating 
+
+
 class Review (models.Model):
     restaurant= models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

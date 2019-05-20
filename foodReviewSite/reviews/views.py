@@ -3,7 +3,6 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from .models import Restaurant, Review, Comment
 from .forms import ReviewForm, CommentForm, UserForm
 from django.contrib.auth.models import User
-from datetime import datetime
 from django.forms import ValidationError
 from django.contrib.auth import authenticate, login, logout
 
@@ -33,15 +32,16 @@ def rest_detail(request, restaurant_id):
     if request.user.is_authenticated:
         try:
             restaurant= Restaurant.objects.get(pk=restaurant_id)
-            review_exist = True
+            user_review_exist = True
         except Restaurant.DoesNotExist:
             raise Http404("Restuarant does not exist")
         review = Review.objects.filter(user=request.user, restaurant=restaurant)
         if not review:
-            review_exist = False
+            user_review_exist = False
+        # load_reviews = Review.objects.filter(restaurant=restaurant)
         context = {"restaurant" : restaurant, 
         "reviews" : Review.objects.filter(restaurant=restaurant), 
-        "review_exist" : review_exist,
+        "user_review_exist" : user_review_exist,
         "review": review}
         return render(request, "rest_detail.html", context)
     else:
@@ -71,23 +71,6 @@ def review(request, restaurant_id):
     else:
         return HttpResponseRedirect(reverse('login'))
 
-
-# submit review of selected restaurant
-def review_detail(request, review_id):   
-    # u = User.username- add in later
-    if request.user.is_authenticated:
-        try:
-            review= Review.objects.get(pk=review_id)
-        except Review.DoesNotExist:
-            raise Http404("Review does not exist")
-        context = {
-            "review": review,
-            "comments" : Comment.objects.filter(review=review)
-            }
-        return render(request, "review_detail.html", context)
-    else:
-        return HttpResponseRedirect(reverse('login'))
-
 # submit review of selected restaurant
 def comment(request, review_id):   
     # u = User.username- add in later
@@ -103,7 +86,7 @@ def comment(request, review_id):
                 desc = form.cleaned_data['content']
                 comment = Comment(user=request.user, review = review, content=desc)
                 comment.save()
-                return HttpResponseRedirect(reverse('cat_list'))
+                return HttpResponseRedirect(reverse('rest_detail', args={review.restaurant.id}))
             else:
                 return render(request, 'comment.html', {'form': form})
         if request.method == 'GET':
@@ -125,7 +108,8 @@ def login_user(request):
             login(request, user)
             return HttpResponseRedirect(reverse('cat_list'))
         if user is None:
-            return render(request, 'login.html', {'message': 'Invalid credentials'})
+            form=UserForm()
+            return render(request, 'login.html', {'form': form, 'message': 'Invalid credentials'})
 
 def logout_user(request):
     if request.user.is_authenticated:
